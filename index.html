@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's Your Design Archetype? | Prohl Design</title>
+<meta name="description" content="Pick the rooms, colors and details you love and find your interior design archetype. By Prohl Design, Greater Austin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Over+the+Rainbow&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111111; --charcoal:#282626; --white:#FFFFFF; --linen:#FAF8F7; --greige:#EDEAE6;
+  --mist:#DCCEF7; --lilac:#C4B1F1; --site:#AE93E7; --site-hover:#9C7FDD; --purple-deep:#7A4DD6;
+  --sans:"Arimo",Arial,sans-serif;
+  --italic:"Times New Roman",Times,serif;
+  --hand:"Over the Rainbow",cursive;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--linen);color:var(--charcoal);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+button{font-family:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+.card{background:var(--white);border-radius:6px;box-shadow:0 10px 40px rgba(40,38,38,.08);padding:36px 28px 32px;position:relative;overflow:hidden}
+.bar{position:absolute;left:0;top:0;height:4px;background:var(--lilac);transition:width .35s ease}
+.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#7a7676;text-align:center;margin:0 0 14px}
+h1,h2{font-weight:700;text-transform:uppercase;letter-spacing:.04em;text-align:center;line-height:1.12;margin:0 0 10px;color:var(--ink)}
+h1{font-size:clamp(28px,5.4vw,46px)}
+h2{font-size:clamp(20px,3.6vw,30px)}
+.it{font-family:var(--italic);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;font-size:1.6em;line-height:.75}
+mark,.mark{background:var(--mist);color:inherit;padding:.02em .22em;border-radius:0;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.sub{text-align:center;font-size:15px;line-height:1.55;color:#555;margin:0 auto 22px;max-width:520px}
+.hand{font-family:var(--hand);color:var(--purple-deep);font-size:20px;transform:rotate(-4deg);display:inline-block}
+.hero-img{display:block;width:min(420px,100%);margin:6px auto 22px;border-radius:50%}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 32px;border:1.5px solid var(--site);border-radius:50px;background:var(--site);color:#fff;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,opacity .2s}
+.btn:hover{background:var(--site-hover);border-color:var(--site-hover)}
+.btn[disabled]{opacity:.35;cursor:not-allowed}
+.btn.white{background:#fff;color:var(--charcoal);border-color:var(--charcoal)}
+.btn.white:hover{background:var(--linen)}
+.btn.black{background:var(--charcoal);border-color:var(--charcoal)}
+.btn.black:hover{background:var(--ink);border-color:var(--ink)}
+.center{text-align:center}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px}
+.back{background:none;border:0;color:#7a7676;font-size:14px;cursor:pointer;padding:10px 4px}
+.back:hover{color:var(--ink)}
+.count{font-size:13px;color:#7a7676;text-align:center;margin:-8px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{position:relative;border:0;padding:0;background:var(--white);cursor:pointer;border-radius:4px;overflow:hidden;box-shadow:0 0 0 1px var(--greige);transition:box-shadow .15s,transform .15s;text-align:center}
+.tile img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--greige)}
+.tile span{display:block;padding:9px 6px 10px;font-size:13px;letter-spacing:.05em;color:var(--charcoal)}
+.tile:hover{transform:translateY(-2px)}
+.tile.on{box-shadow:0 0 0 3px var(--site)}
+.tile.on::after{content:"";position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:var(--site) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.tile.full{opacity:.45}
+form{max-width:420px;margin:0 auto}
+label.f{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7a7676;margin:14px 0 6px}
+input[type=text],input[type=email]{width:100%;height:48px;border:1.5px solid var(--greige);border-radius:4px;padding:0 14px;font-size:16px;font-family:var(--sans);color:var(--ink);background:var(--linen)}
+input:focus{outline:none;border-color:var(--site)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.45;color:#555;margin:16px 0 4px}
+.check input{margin-top:3px;accent-color:var(--site);width:16px;height:16px;flex:none}
+.err{color:#b4413b;font-size:13px;min-height:18px;margin-top:8px}
+.small{font-size:12px;color:#8a8686;line-height:1.5}
+.pics{display:grid;gap:12px;margin:6px 0 24px;align-items:start}
+.pics.single{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+.pics.equal{grid-template-columns:1fr 1fr}
+.pics.touch{grid-template-columns:1.7fr 1fr}
+.pics figure{margin:0;position:relative}
+.pics img{display:block;width:100%;border-radius:4px}
+.pics figcaption{font-family:var(--hand);color:var(--purple-deep);font-size:20px;text-align:center;margin-top:8px;transform:rotate(-3deg)}
+.traits{text-align:center;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#7a7676;margin:0 0 4px}
+.palette{max-width:620px;margin:30px auto 0;text-align:center}
+.palette .note{font-size:13px;color:#7a7676;margin:4px 0 12px}
+.dots{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.dot{width:56px;height:56px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.textlinks{font-size:14px;color:#555;margin:14px 0 4px}
+.textlinks a{color:var(--charcoal);text-decoration:underline;text-underline-offset:3px;margin:0 4px}
+.lead{font-family:var(--italic);font-style:italic;font-size:clamp(44px,9vw,76px);line-height:1;color:var(--ink);text-align:center;margin:4px 0 8px}
+.lead .amp{font-size:.7em;color:var(--lilac);padding:0 .12em}
+.touch{text-align:center;font-size:17px;color:#555;margin:0 0 22px}
+.touch .it{color:var(--ink);font-size:1.5em}
+.desc{font-size:16px;line-height:1.65;color:#3a3838;max-width:620px;margin:0 auto 16px}
+.desc h3{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#7a7676;margin:26px 0 8px;font-weight:700}
+.scores{max-width:520px;margin:28px auto 4px}
+.row{display:grid;grid-template-columns:96px 1fr 38px;align-items:center;gap:10px;font-size:13px;margin:6px 0}
+.track{height:8px;background:var(--greige);border-radius:8px;overflow:hidden}
+.fill{height:100%;background:#A9A6A2;border-radius:8px}
+.row.top .fill{background:var(--charcoal)}
+.row .pc{text-align:right;color:#7a7676}
+.shop{border-top:1px solid var(--greige);margin-top:32px;padding-top:26px;text-align:center}
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:14px 0 6px}
+.meet{background:var(--linen);border-radius:6px;padding:26px 20px;margin-top:30px;text-align:center}
+.meet p{font-size:15px;line-height:1.55;color:#555;max-width:480px;margin:8px auto 16px}
+.foot{text-align:center;margin-top:22px;font-size:11px;letter-spacing:.24em;color:#9a9696;text-transform:uppercase}
+.foot a{color:inherit;text-decoration:none}
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (max-width:600px){
+  .card{padding:30px 14px 24px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .row{grid-template-columns:84px 1fr 34px}
+  .dot{width:44px;height:44px}
+  .dots{gap:10px}
+  .btn{width:100%}
+  .nav .btn{width:auto;flex:1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card"><div class="bar" id="bar" style="width:0"></div><div id="app"></div></div>
+  <div class="foot"><a href="https://www.prohl.design" target="_top">Prohl Design · Greater Austin</a></div>
+</div>
+
+<script>
+/* ===== Settings (step 3 fills ENDPOINT with the Google Apps Script web app URL) ===== */
+const CONFIG = {
+  ENDPOINT: "",                                   // Google Sheet receiver, empty = answers are not saved yet
+  MEET_URL: "https://prohl.design/call",
+  MAVELY_DEFAULT: "https://mave.ly/prohl-design",
+  AMAZON_DEFAULT: "https://www.amazon.com/shop/katya.pro.design",
+  MAX_PICKS: 6,
+  TIE_TOUCH: 0.6                                  // second archetype >= 60% of the leader = "with a touch of"
+};
+/* Our own pictures live in img/ next to this page */
+const LOCAL_BASE = "img/";
+/* Pictures from the old involve.me quiz are copied to img/q/<id>.jpg (800 px squares, step 5) */
+const IMG = (id, w) => id.startsWith("local/") ? LOCAL_BASE + id.slice(6) + (/\.\w+$/.test(id) ? "" : ".jpg") : LOCAL_BASE + "q/" + id.replace(/\.\w+$/, "") + ".jpg";
+const IMG_FULL = (id) => IMG(id);
+
+/* ===== Archetypes ===== */
+const ARCH = {
+  innocent:{name:"Innocent", img:"local/arch-innocent", traits:"Cute · Optimistic · Open-minded",
+    text:"You see possibility everywhere and approach life with curiosity and a positive outlook. In your home this means <mark>fresh, airy color</mark>: soft pastels, lightened hues, warm whites.",
+    home:"Make it fun and cute. Add the details that make you smile, and <mark>use all your favorite colors</mark>.",
+    dir:{"try": "Pastel colors · Neutrals", "palette": "Mono or Soft Contrast", "intensity": "Just a Touch → Balanced", "tip": "When a color feels too strong, add white. You’ll keep its personality while making it softer, lighter, and easier to live with."},
+    colors:[["Bubblegum","#F4B6CB"],["Aqua","#9ED9D4"],["Lemon","#F6E58D"],["Warm white","#FBF7EF"]]},
+  everyman:{name:"Everyman", img:"local/arch-everyman", traits:"Friendly · Easygoing · Grounded",
+    text:"You value comfort, connection, and things that feel genuine rather than complicated. In your home this means <mark>familiar, livable color</mark>: warm neutrals, dusty tones, relaxed shades.",
+    home:"Keep it timeless: neutral colors, simple furniture, and <mark>room for your hobbies</mark>.",
+    dir:{"try": "Neutrals · Dusty colors", "palette": "Mono or Neighboring", "intensity": "Just a Touch → Balanced", "tip": "Start with a neutral foundation, then bring in color through familiar, easy-to-repeat shades. You can always experiment more once the room feels grounded."},
+    colors:[["Soft gray","#BDBBB6"],["Warm white","#F6F3EE"],["Denim","#5A7194"],["Barn red","#A63A35"]]},
+  hero:{name:"Hero", img:"local/arch-hero", traits:"Strong · Confident · Purposeful",
+    text:"You set goals, take action, and aren't afraid to make decisions. In your home this means <mark>clear, intentional color</mark>: strong contrast, deeper shades, a structured palette.",
+    home:"Keep it minimal and functional: straight lines, clean shapes, and <mark>space to move</mark>.",
+    dir:{"try": "Pure · Deep colors", "palette": "Contrast or Mono", "intensity": "Balanced → Go Bold", "tip": "Strong color works best when it has structure. Choose one dominant color, then use contrast intentionally instead of adding more and more shades."},
+    colors:[["Forest","#2F4A3A"],["Graphite","#4A4A4A"],["Black","#151515"],["Light oak","#CDB18C"]]},
+  caregiver:{name:"Caregiver", img:"local/arch-caregiver", traits:"Caring · Generous · Comforting",
+    text:"You naturally create warmth and make people feel looked after. In your home this means <mark>gentle, welcoming color</mark>: warm neutrals, softened hues, calm combinations.",
+    home:"Your home reflects your heart: cozy, welcoming, and full of love. Think <mark>soft lines, plush textures</mark>, and soothing colors. Warm, gentle lighting and comforting scents create a sanctuary where everyone feels safe and cherished. Your space isn’t just beautiful, it’s a hug in design form.",
+    dir:{"try": "Neutrals · Dusty colors", "palette": "Neighboring or Mono", "intensity": "Just a Touch → Balanced", "tip": "Warmth doesn’t require more color. A few related shades layered through soft textures and natural materials can make the whole room feel inviting."},
+    colors:[["Cream","#F3EBDD"],["Caramel","#C08A55"],["Sage","#A7B39A"],["Ivory","#FBF8F1"]]},
+  explorer:{name:"Explorer", img:"local/arch-explorer", traits:"Independent · Adventurous · Free-spirited",
+    text:"You're energized by discovery, new experiences, and the freedom to follow your own path. In your home this means <mark>earthy, collected color</mark> that feels gathered, not matched.",
+    home:"Fill it with <mark>a traveler's treasures</mark>. Mix and match materials and shapes.",
+    dir:{"try": "Dusty · Shade colors", "palette": "Neighboring or Triangle", "intensity": "Balanced → Go Bold", "tip": "Let your palette feel collected. Mix related colors in different materials and finishes instead of trying to make every shade match perfectly."},
+    colors:[["Oatmeal","#DCCFB8"],["Cognac","#8A4F2A"],["Rattan","#C49A60"],["Olive","#6E7550"]]},
+  outlaw:{name:"Outlaw", img:"local/arch-outlaw", traits:"Rebellious · Bold · Unconventional",
+    text:"You question the expected, trust your instincts, and break a few rules along the way. In your home this means <mark>fearless color</mark>: deep shades, strong contrast, unexpected pairings.",
+    home:"Make it rebellious, almost too much. <mark>Add a spicy flavor</mark>.",
+    dir:{"try": "Dark · Shade colors", "palette": "Contrast or Triangle", "intensity": "Go Bold", "tip": "Break one rule at a time. Start with an unexpected color combination, then give it enough repetition to make it look intentional."},
+    colors:[["Black","#121212"],["Chalk","#F4F2EE"],["Brick","#9C4A35"],["Lipstick","#C1121F"]]},
+  lover:{name:"Lover", img:"local/arch-lover", traits:"Sensual · Elegant · Passionate",
+    text:"You appreciate beauty, atmosphere, and the little details that make life feel special. In your home this means <mark>rich, romantic color</mark>: warm undertones and layered, moody combinations.",
+    home:"Make it elegant and chic: <mark>romantic details</mark>, a little gloss, nude colors.",
+    dir:{"try": "Dusty · Shade colors with warm neutrals", "palette": "Neighboring or Soft Contrast", "intensity": "Balanced", "tip": "Build color in layers. Repeat your favorite hue through velvet, glass, textiles, and other finishes to create richness without making everything match."},
+    colors:[["Nude","#E3C3AE"],["Powder","#EBC9C6"],["Champagne","#E9D9B6"],["Brass","#B08D57"]]},
+  creator:{name:"Creator", img:"local/arch-creator", traits:"Imaginative · Unusual · Expressive",
+    text:"You see possibilities where others see rules and turn ideas into something your own. In your home this means <mark>inventive color</mark>: unusual pairings and playful contrasts.",
+    home:"Make it unique. <mark>Mix the unmixable</mark> and trust your taste.",
+    dir:{"try": "Pure · Deep · Pastel colors", "palette": "Triangle or two Contrast pairs", "intensity": "Go Bold", "tip": "Use the color wheel as a starting point, not a rulebook. Once your palette has a clear relationship, give yourself permission to add something unexpected."},
+    colors:[["Teal","#3FB8AF"],["Pink","#F28DB2"],["Mustard","#D9A62E"],["Emerald","#1F6F55"]]},
+  ruler:{name:"Ruler", img:"local/arch-ruler", traits:"Powerful · Refined · Organized",
+    text:"You value order, quality, and things that feel intentional rather than temporary. In your home this means <mark>sophisticated color</mark>: deep, confident shades and timeless combinations.",
+    home:"Make it speak of status: <mark>timeless furniture</mark> and quality materials.",
+    dir:{"try": "Deep colors", "palette": "Mono or Contrast", "intensity": "Balanced → Go Bold", "tip": "Keep the palette disciplined. A few strong colors used with intention will feel more luxurious than too many competing shades."},
+    colors:[["Navy","#1E2A4A"],["Oxblood","#7E1F25"],["Gold","#C9A44C"],["Pearl","#EEE9E0"]]},
+  magician:{name:"Magician", img:"local/arch-magician", traits:"Intuitive · Mysterious · Transformative",
+    text:"You look beyond the obvious and love atmosphere, meaning, and the unexpected. In your home this means <mark>immersive color</mark>: deep jewel tones and shadowy shades.",
+    home:"Make it meaningful and deep. <mark>Weave in scents and sounds</mark>.",
+    dir:{"try": "Deep · Dusty colors", "palette": "Soft Contrast or Triangle", "intensity": "Balanced → Go Bold", "tip": "Think about atmosphere before individual colors. Start with the feeling you want to create, then build a palette that supports it through color, light, and texture."},
+    colors:[["Blueberry","#3B2D5C"],["Emerald","#1D4D3F"],["Black","#151515"],["Brass","#B08D57"]]},
+  sage:{name:"Sage", img:"local/arch-sage", traits:"Thoughtful · Calm · Wise",
+    text:"You seek understanding, clarity, and ideas that stand the test of time. In your home this means <mark>calm, considered color</mark>: nuanced neutrals and dusty hues.",
+    home:"Keep it simple and free of distractions, with <mark>soft lighting</mark> and room to think.",
+    dir:{"try": "Dusty · Deep colors", "palette": "Mono or Neighboring", "intensity": "Just a Touch → Balanced", "tip": "Look for nuance rather than more color. Subtle shifts within one color family can create depth while keeping the room calm and visually clear."},
+    colors:[["Beige","#DCCDB4"],["Camel","#B98C5E"],["Warm white","#F6F1E8"],["Light wood","#D2B48C"]]},
+  jester:{name:"Jester", img:"local/arch-jester", traits:"Playful · Spontaneous · Joyful",
+    text:"You bring energy, humor, and fun to the world around you. In your home this means <mark>expressive color</mark>: bright hues and playful contrasts that make the room feel alive.",
+    home:"Make it a fun place. Add <mark>whatever makes people smile</mark>.",
+    dir:{"try": "Pure · Pastel colors", "palette": "Contrast, Soft Contrast or Triangle", "intensity": "Go Bold", "tip": "Give playful color one thing to hold it together. Repeat a color, shape, or material across the room so an eclectic palette still feels intentional."},
+    colors:[["Sunny","#F7D120"],["Red","#E03A3E"],["Cobalt","#2C5BD8"],["Pink","#F27BB5"]]}
+};
+/* Per-archetype shop links: filled when the Mavely and Amazon collections are ready */
+const SHOP = {}; // e.g. SHOP.caregiver = {mavely:"https://mave.ly/...", amazon:"https://www.amazon.com/shop/..."}
+
+/* ===== Questions (from involve.me, 2026-11-17) ===== */
+const I=["innocent","everyman","hero","caregiver","explorer","outlaw","lover","creator","ruler","magician","sage","jester"];
+const one=(rows)=>rows.map((r,k)=>({t:r[0],img:r[1]+".jpg",a:[I[k]]}));
+const Q=[
+ {title:'What does your <span class="it">ideal&nbsp;home</span> look like?', a:one([
+  ["Cute","b0bed866-135b-4c1e-be0e-b16035cc452a"],["Neutral","0394945f-f9a8-4f1e-afa1-adb80a2538c9"],["Minimalist","fc81cbfc-cf78-47bb-8aab-40ef0795d2b4"],["Relaxing","c7d9f082-d151-45be-9063-6e7183a9f7c1"],["Exploring","889dbbd4-e12f-4fef-b605-b9e3d9e24687"],["Brutal","85d192a7-ed62-4af2-9c43-96e59282af9e"],["Aesthetic","d073faa3-c8fc-4624-87b2-5e1cb5c00fec"],["Unusual","b8144374-0319-493c-9ab1-e2ce2decddbd"],["Luxury","84abe5be-0e05-44ac-ac6a-869b7f5e5026"],["Mysterious","32a64731-7caf-414f-9e16-04c031be7bd9"],["Ascetic","77e0c219-5daa-4329-8fc4-70e4d04069fb"],["Funny","66be84cd-7a54-43d1-a20d-2723b6fbe962"]])},
+ {title:'Choose your favorite <span class="it">colors</span>', a:[
+  {t:"Hot Red",sw:["#3C3229","#6A5C54","#733722","#FC5F6A","#E7242D"],img:"fcf0b984-5d5a-4a25-8bb3-4eb5ef3d62b8.png",a:["hero","ruler","creator","jester","lover","magician"]},
+  {t:"Cheerful Orange",sw:["#583E26","#A78B71","#F7C815","#EC9704","#9C4A1A"],img:"35bf06d6-14c3-41ef-8420-d3a95f81aeb5.png",a:["explorer","creator","everyman"]},
+  {t:"Accent Yellow",sw:["#2C3258","#E4B61A","#FEE970","#DBD7D4","#9B9183"],img:"1d3b860f-a160-4c6d-887f-1469f64fb455.png",a:["explorer","jester","innocent","creator"]},
+  {t:"Fresh Green",sw:["#677C77","#445F3B","#8EA076","#E0EFEA","#564734"],img:"b7f03f68-fd40-4720-ae76-d93dbf9faef5.png",a:["innocent","everyman","caregiver","explorer","sage"]},
+  {t:"Rich Teal",sw:["#BD9364","#C6B4B3","#1D7E84","#02251E","#243804"],img:"9db62c4a-0655-40d2-b1c2-66c9648b85a5.png",a:["magician","ruler","creator","lover"]},
+  {t:"Pure Blue",sw:["#022E66","#6B99C3","#D1AB7D","#96785B","#C2C3C5"],img:"e0284c28-16ce-4bdd-a754-ae4c1449c97a.png",a:["everyman","hero","sage"]},
+  {t:"Soft Pastel",sw:["#F9FEFF","#EAC9D4","#FCEBAE","#C79E42","#8B5824"],img:"c8cd7bf3-a6ad-4918-96cc-692caa3dfcb0.png",a:["innocent","creator","lover","caregiver"]},
+  {t:"Royal Purple",sw:["#1E0039","#604D9E","#A27EB8","#AAA2D8","#E4D6F8"],img:"99512102-27ae-4b7a-8546-1fbc272eb111.png",a:["magician","ruler"]},
+  {t:"Bright Neon",sw:["#02C9AF","#049CE4","#FE00EC","#2B4F8D","#011034"],img:"8e170661-59e4-4523-8c66-f4e4e73c6881.png",a:["jester","magician","outlaw"]},
+  {t:"Earthy Tones",sw:["#DBDAD6","#BEAB9E","#B3814E","#723505","#202020"],img:"76861b68-f60b-456f-ac5b-565e7a7e9203.png",a:["everyman","sage","caregiver","explorer"]},
+  {t:"Grays & Neutrals",sw:["#753600","#D6B686","#F9F8F6","#A9A6A1","#5E5654"],img:"a2849006-c9c2-40eb-9f88-b3c69b14913f.png",a:["everyman","caregiver","explorer","sage"]},
+  {t:"Black & White",sw:["#020104","#22232A","#46413B","#BEBAB5","#F7F7F6"],img:"7f4a5fd4-d315-4053-bbf9-d8c7a7ef990b.png",a:["outlaw","creator","hero"]}]},
+ {title:'Pick your <span class="it">walls</span>', a:one([
+  ["Romantic","local/25-romantic-mural"],["Popular","local/26-popular-kimberly"],["Clean","d6722e94-1e76-4110-a5eb-3a5ef54d23e4"],["Hotel look","01f63f2b-c83a-4db7-9d1c-683f360e5414"],["Traveling","5eea17e7-9a73-4637-ba1a-88dd4b2004c0"],["Street art","9b789fc2-43c1-48c4-b1cb-b5838e48d187"],["Graceful","d811bf55-9e7d-4975-8da2-d159bae9ffdd"],["Artistic","a7357718-0ff9-4517-a6c4-54a5ce906e7b"],["Rich","6bea33b3-1fd9-4a94-99bc-aa3c2c1ee9d8"],["Mystifying","56d6bbc6-3f61-42ba-8ff8-7633455ead1e"],["Calm","b9d3c60a-84a9-4bc6-8965-f436e9917ad3"],["Funky","90fce9bf-cd86-4600-9544-db120ac1182d"]])},
+ {title:'Choose your <span class="it">furniture</span> style', a:one([
+  ["Sweet","9564dec3-e63d-4edc-afd8-01e3bfbb0881"],["Simple","a20d418b-2c5d-4cc7-ae3a-d506aa44fbfc"],["Functional","f7df3353-5712-4c3f-af43-a72e122e0ebf"],["Inviting","578d1f61-836b-45dd-8ee0-d8fa006833d0"],["Colonial","b2353e68-8297-4ee6-b4fa-f78f685b8137"],["Dark","14399e31-60ad-45b7-92a1-7cbcd79963fa"],["Elegant","ad14a028-8c8e-401f-85da-c6e1e7f2d195"],["Unusual","f4113d09-9b97-46de-8ee1-59edf75cd225"],["Status","58c5f0a0-3ca6-4249-b6b6-efba2e28d8bd"],["Magical","e8bd6f86-eb26-4109-81d1-5d660ed7ba06"],["Private","0d6900a1-de6e-466f-9ee1-364c54e7654e"],["Funky","ab00b0ca-d383-4b5c-92ed-716725ebca6a"]])},
+ {title:'What is your <span class="it">decor</span> style?', a:one([
+  ["Lovely","f8b381ef-f356-4c42-8947-3e7507aa0149"],["Neutral","583d4c20-c01a-4b9e-98fd-8acf4d0d2008"],["Functional","local/51-functional-decor"],["Cozy","4f8985ed-f422-4937-ab73-1708346ffbad"],["Natural","74c392e0-302e-4f1d-9fa5-d3eb2cc90f5b"],["Raw","a8167b2d-7a2c-4c11-a58b-5cff04038c38"],["Sexy","c07bf8c8-5a68-4106-9f1a-0e32c7c3bdb0"],["Creative","4c226132-5917-42c4-b4bd-7dbae8396949"],["Lux","856fee8e-1eaf-4f4e-96bc-9757097cd512"],["Healing","f15e0446-cc2a-47f8-8ea9-7deb89882b1f"],["Laconic","e167bb3d-7fb2-42e9-9b65-035f6ba79ad9"],["Jokey","1e623c79-8888-47ca-8124-c6a436bfdf70"]])},
+ {title:'Choose the picture that <span class="it">describes&nbsp;you</span> the most', a:one([
+  ["Pure","f102ea5c-0de0-4736-a656-92480ad28dbb"],["Friendly","6c657421-558a-41d2-aba5-124cf9b8653e"],["Strong","local/63-strong-man"],["Cozy","6c77e4c6-0642-44ee-b6ce-6c53a9611aed"],["Traveler","b3a3e292-6694-4a95-a2aa-a7e05ef58810"],["Rebellious","319cf191-3769-4c19-b527-c277802c3cfb"],["Sensual","a5ee4373-c0c9-46ab-9e68-d64e5169659b"],["Creative","fc20eb21-2a0d-46d5-8615-19ff8fa5eb4c"],["Bossy","88562ee2-1055-4202-9933-18fe41abbb0c"],["Mystical","1df5ec32-f323-439d-a3bc-603170f58b28"],["Intelligent","local/71-intelligent-man"],["Funny","07cbabe7-41e3-42c4-9a1d-b4b7618e1e20"]])}
+];
+
+/* ===== State ===== */
+const params = new URLSearchParams(location.search);
+const SOURCE = params.get("from") === "zoom" ? "zoom" : "open";
+const order = Q.map(q => shuffle(q.a.map((_,k)=>k)));
+const picks = Q.map(() => new Set());
+let step = -1, person = null;
+const app = document.getElementById("app"), bar = document.getElementById("bar");
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function progress(){const total=Q.length+2;bar.style.width=Math.max(0,Math.min(100,((step+1)/total)*100))+"%"}
+function show(html){app.innerHTML='<div class="fade">'+html+'</div>';progress();postHeight();try{app.scrollIntoView({block:"start",behavior:"smooth"})}catch(e){}}
+
+/* ===== Screens ===== */
+function intro(){
+  step=-1;
+  show(`<p class="eyebrow">Prohl Design · Archetype test</p>
+  <img class="hero-img" src="${IMG("9da3fb60-7843-41e9-b4ae-53e7008fd813.jpg",840)}" alt="The wheel of 12 archetypes">
+  <h1>What's your <span class="it">design</span> archetype?</h1>
+  <p class="sub">Pick the rooms, colors and details you love. In about 2&nbsp;minutes you'll see who your home is really for, and how to make it feel like&nbsp;you.</p>
+  <div class="center"><button class="btn" id="go">Take the test</button></div>`);
+  document.getElementById("go").onclick=()=>question(0);
+}
+
+function question(n){
+  step=n; const q=Q[n], set=picks[n];
+  const tiles=order[n].map(k=>{const a=q.a[k];return `<button type="button" class="tile${set.has(k)?" on":""}" data-k="${k}" aria-pressed="${set.has(k)}"><img loading="lazy" src="${IMG(a.img)}" alt="${esc(a.t)}"><span>${esc(a.t)}</span></button>`}).join("");
+  show(`<p class="eyebrow">Question ${n+1} of ${Q.length}</p>
+  <h2>${q.title}</h2>
+  <p class="count" id="cnt"></p>
+  <div class="grid">${tiles}</div>
+  <div class="nav"><button class="back" id="back">← Back</button><button class="btn" id="next">Next</button></div>`);
+  const cnt=document.getElementById("cnt"), next=document.getElementById("next");
+  const sync=()=>{cnt.textContent=set.size?`${set.size} of ${CONFIG.MAX_PICKS} picked`:`Pick up to ${CONFIG.MAX_PICKS}`;next.disabled=!set.size;
+    app.querySelectorAll(".tile").forEach(t=>{const k=+t.dataset.k;t.classList.toggle("on",set.has(k));t.setAttribute("aria-pressed",set.has(k));t.classList.toggle("full",!set.has(k)&&set.size>=CONFIG.MAX_PICKS)})};
+  app.querySelectorAll(".tile").forEach(t=>t.onclick=()=>{const k=+t.dataset.k;if(set.has(k))set.delete(k);else if(set.size<CONFIG.MAX_PICKS)set.add(k);sync()});
+  next.onclick=()=>n+1<Q.length?question(n+1):form();
+  document.getElementById("back").onclick=()=>n?question(n-1):intro();
+  sync();
+}
+
+function form(){
+  step=Q.length;
+  const zoom=SOURCE==="zoom";
+  show(`<p class="eyebrow">Almost there</p>
+  <h2>Where should we send <span class="it">your&nbsp;result?</span></h2>
+  <p class="sub">${zoom?"So we can bring your archetype to our next meeting.":"Your archetype, what it means for your home, and decor picks made for&nbsp;you."}</p>
+  <form id="f" novalidate>
+    <label class="f" for="nm">First name</label><input type="text" id="nm" autocomplete="given-name" required>
+    <label class="f" for="em">Email</label><input type="email" id="em" autocomplete="email" required>
+    ${zoom?"":`<label class="check"><input type="checkbox" id="ok" checked><span>Send me design tips and ideas from Prohl Design. Unsubscribe anytime.</span></label>`}
+    <div class="err" id="err"></div>
+    <div class="nav"><button type="button" class="back" id="back">← Back</button><button class="btn" type="submit">See my archetype</button></div>
+  </form>`);
+  document.getElementById("back").onclick=()=>question(Q.length-1);
+  document.getElementById("f").onsubmit=e=>{e.preventDefault();
+    const nm=document.getElementById("nm").value.trim(), em=document.getElementById("em").value.trim();
+    const err=document.getElementById("err");
+    if(!nm){err.textContent="Please add your first name.";return}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){err.textContent="Please check your email.";return}
+    const ok=document.getElementById("ok");
+    person={name:nm,email:em,consent:zoom?false:!!(ok&&ok.checked)};
+    result();
+  };
+}
+
+function score(){
+  const s=Object.fromEntries(I.map(k=>[k,0]));
+  Q.forEach((q,n)=>{if(q.a[0].sw)return; picks[n].forEach(k=>q.a[k].a.forEach(id=>s[id]++))});   // colors only build the palette, no points
+  const ranked=I.slice().sort((a,b)=>s[b]-s[a]);
+  const [a,b]=ranked, top=s[a];
+  let mode="single";
+  if(top>0&&s[b]===top) mode="equal";
+  else if(top>0&&s[b]>=top*CONFIG.TIE_TOUCH) mode="touch";
+  return {s,ranked,mode,lead:a,second:mode==="single"?null:b};
+}
+
+function result(){
+  step=Q.length+1;
+  const r=score(), A=ARCH[r.lead], B=r.second?ARCH[r.second]:null;
+  const total=Object.values(r.s).reduce((x,y)=>x+y,0)||1;
+  const pct=k=>Math.round(r.s[k]/total*100);
+  const zoom=SOURCE==="zoom";
+  let head, pics;
+  const fig=(X,cap)=>`<figure><img src="${IMG_FULL(X.img)}" alt="${X.name} interior collage">${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`;
+  if(r.mode==="equal"){
+    head=`<div class="lead">${A.name}<span class="amp">&amp;</span>${B.name}</div><p class="touch">equal parts of&nbsp;both</p>`;
+    pics=`<div class="pics equal">${fig(A,A.name)}${fig(B,B.name)}</div>`;
+  } else if(r.mode==="touch"){
+    head=`<div class="lead">${A.name}</div><p class="touch">with a touch of <span class="it">${B.name}</span></p>`;
+    pics=`<div class="pics touch">${fig(A,"")}${fig(B,"a touch of "+B.name)}</div>`;
+  } else {
+    head=`<div class="lead">${A.name}</div><p class="traits" style="margin-bottom:22px">${A.traits}</p>`;
+    pics=`<div class="pics single">${fig(A,"")}</div>`;
+  }
+  const block=(X,showTraits)=>`<h3>${X.name}</h3>${showTraits?`<p class="traits" style="text-align:left">${X.traits}</p>`:""}<p>${X.text}</p><p>${X.home}</p>${X===A&&X.dir?`<p class="tip"><span class="it">Designer tip:</span> ${X.dir.tip}</p>`:""}`;
+  const palette=paletteHTML();
+  const link=(key,kind)=>(SHOP[key]||{})[kind]||(kind==="mavely"?CONFIG.MAVELY_DEFAULT:CONFIG.AMAZON_DEFAULT);
+  const rows=r.ranked.slice(0,4).filter(k=>r.s[k]>0).map((k,i)=>`<div class="row${i===0?" top":""}"><span>${ARCH[k].name}</span><div class="track"><div class="fill" style="width:${pct(k)/pct(r.lead)*100}%"></div></div><span class="pc">${pct(k)}%</span></div>`).join("");
+  show(`<p class="eyebrow">${esc(person.name)}, meet your design archetype</p>
+  ${head}
+  ${pics}
+  <div class="desc">${block(A,!!B)}${B?block(B,true):""}</div>
+  ${palette}
+  <div class="scores">${rows}</div>
+  <div class="shop">
+    <span class="hand">decor we picked for you</span>
+    <h2>Bring <span class="it">your</span> archetype home</h2>
+    <div class="btns"><a class="btn black" href="${link(r.lead,"mavely")}" target="_blank" rel="noopener">Shop ${A.name} decor</a></div>
+    ${B?`<p class="textlinks"><a href="${link(r.second,"mavely")}" target="_blank" rel="noopener">Shop ${B.name} decor</a></p>`:""}
+    <p class="small">We may earn a small commission from these links, at no extra cost to&nbsp;you.</p>
+  </div>
+  ${zoom?`<div class="meet"><h2>See you at our <span class="it">next&nbsp;meeting</span></h2><p>We'll bring your archetype to the table and show how it shapes your home.</p></div>`
+  :`<div class="meet"><h2>Free Design <span class="it">Meet&nbsp;&amp;&nbsp;Greet</span></h2><p>30 min on Zoom: what a home like yours costs to design and furnish here in Greater Austin, and what your next steps&nbsp;are.</p><a class="btn" href="${CONFIG.MEET_URL}" target="_blank" rel="noopener">Book your call</a></div>`}
+  <div class="center" style="margin-top:20px"><button class="back" id="again">Take the test again</button></div>`);
+  document.getElementById("again").onclick=()=>{picks.forEach(s=>s.clear());intro()};
+  send(r);
+}
+
+function hsl(h){const r=parseInt(h.slice(1,3),16)/255,g=parseInt(h.slice(3,5),16)/255,b=parseInt(h.slice(5,7),16)/255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2,d=mx-mn;let hh=0,ss=0;if(d){ss=d/(1-Math.abs(2*l-1));hh=mx===r?((g-b)/d)%6:mx===g?(b-r)/d+2:(r-g)/d+4;hh=(hh*60+360)%360}return{h:hh,s:ss,l}}
+function dist(a,b){const p=x=>[parseInt(x.slice(1,3),16),parseInt(x.slice(3,5),16),parseInt(x.slice(5,7),16)];const A=p(a),B=p(b);return Math.hypot(A[0]-B[0],A[1]-B[1],A[2]-B[2])}
+function paletteHTML(){
+  const ci=Q.findIndex(q=>q.a[0].sw);
+  const all=[];[...picks[ci]].forEach(k=>Q[ci].a[k].sw.forEach(h=>{if(!all.some(x=>dist(x,h)<28))all.push(h)}));
+  const FAM=[["Pinks",[]],["Reds",[[330,360],[0,15]]],["Oranges & browns",[[15,45]]],["Yellows & golds",[[45,70]]],["Greens",[[70,165]]],["Teals & blues",[[165,250]]],["Purples",[[250,330]]]];
+  const groups=FAM.map(()=>[]),neutral=[];
+  all.forEach(h=>{const c=hsl(h);if(c.s<.16||c.l<.1||c.l>.95){neutral.push(h);return}const pink=(c.h>=300||c.h<15)&&c.l>.68;const i=pink?0:FAM.findIndex(f=>f[1].some(([a,b])=>c.h>=a&&c.h<b));(groups[i<0?1:i]).push(h)});
+  const best=g=>g.slice().sort((a,b)=>{const f=h=>{const c=hsl(h);return c.s*(1-Math.abs(c.l-.5)*1.4)};return f(b)-f(a)})[0];
+  const midN=g=>g.slice().sort((a,b)=>Math.abs(hsl(a).l-.55)-Math.abs(hsl(b).l-.55))[0];
+  const dots=groups.filter(g=>g.length).map(best).concat(neutral.length?[midN(neutral)]:[]);
+  return `<div class="palette"><span class="hand">your palette</span><p class="note">built from the colors you picked</p><div class="dots">${dots.map(h=>`<div class="dot" style="background:${h}" title="${h}"></div>`).join("")}</div></div>`;
+}
+
+/* ===== Save to Google Sheet (step 3) ===== */
+function send(r){
+  if(!CONFIG.ENDPOINT) return;
+  const answers=Q.map((q,n)=>[...picks[n]].map(k=>({text:q.a[k].t,img:IMG(q.a[k].img,800)})));
+  const body={time:new Date().toISOString(),source:SOURCE,name:person.name,email:person.email,consent:person.consent,
+    result:r.mode,lead:ARCH[r.lead].name,second:r.second?ARCH[r.second].name:"",scores:Object.fromEntries(I.map(k=>[ARCH[k].name,r.s[k]])),answers,page:location.href};
+  try{fetch(CONFIG.ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)})}catch(e){}
+}
+
+/* ===== Height for the Wix embed ===== */
+function postHeight(){try{parent.postMessage({prohlQuizHeight:document.body.scrollHeight},"*")}catch(e){}}
+window.addEventListener("load",postHeight);window.addEventListener("resize",postHeight);
+document.addEventListener("load",e=>{if(e.target.tagName==="IMG")postHeight()},true);
+
+intro();
+</script>
+</body>
+</html>
