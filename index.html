@@ -190,7 +190,7 @@ const ARCH = {
     colors:[["Sunny","#F7D120"],["Red","#E03A3E"],["Cobalt","#2C5BD8"],["Pink","#F27BB5"]]}
 };
 /* Per-archetype shop links: filled when the Mavely and Amazon collections are ready */
-const SHOP = {}; // e.g. SHOP.caregiver = {mavely:"https://mave.ly/...", amazon:"https://www.amazon.com/shop/..."}
+const SHOP = Object.fromEntries(["innocent","everyman","hero","caregiver","explorer","outlaw","lover","creator","ruler","magician","sage","jester"].map(k=>[k,{mavely:"https://mave.ly/prohl-design/post/"+k+"-decor-by-prohl-design"}])); // each archetype -> its own Mavely post
 
 /* ===== Questions (from involve.me, 2026-11-17) ===== */
 const I=["innocent","everyman","hero","caregiver","explorer","outlaw","lover","creator","ruler","magician","sage","jester"];
