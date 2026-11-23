@@ -63,6 +63,10 @@ input:focus{outline:none;border-color:var(--site)}
 .pics.single{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
 .pics.equal{grid-template-columns:1fr 1fr}
 .pics.touch{grid-template-columns:1.7fr 1fr}
+.pics.touch2{grid-template-columns:1fr 1fr;max-width:520px;margin-left:auto;margin-right:auto}
+.pics.touch2>figure:first-child{grid-column:1/-1}
+.pics.three{grid-template-columns:1fr 1fr 1fr}
+.lead.three{font-size:clamp(34px,6.4vw,60px)}
 .pics figure{margin:0;position:relative}
 .pics img{display:block;width:100%;border-radius:4px}
 .pics figcaption{font-family:var(--hand);color:var(--purple-deep);font-size:20px;text-align:center;margin-top:8px;transform:rotate(-3deg)}
@@ -287,46 +291,61 @@ function form(){
   };
 }
 
+const WEIGHT=[2,0,1,1,1,1];   // question 1 "ideal home" counts x2 (Katya 2026-11-23); colors give no points
 function score(){
   const s=Object.fromEntries(I.map(k=>[k,0]));
-  Q.forEach((q,n)=>{if(q.a[0].sw)return; picks[n].forEach(k=>q.a[k].a.forEach(id=>s[id]++))});   // colors only build the palette, no points
-  return rankScores(s);
+  Q.forEach((q,n)=>{if(q.a[0].sw)return; picks[n].forEach(k=>q.a[k].a.forEach(id=>s[id]+=WEIGHT[n]))});
+  // tie-break: picked in "ideal home" first, then in "picture that describes you"; list order only as the very last resort
+  const has=n=>new Set([...picks[n]].flatMap(k=>Q[n].a[k].a));
+  const h0=has(0),h5=has(Q.length-1);
+  return rankScores(s,k=>(h0.has(k)?2:0)+(h5.has(k)?1:0));
 }
 
 /* ===== Result by link: ?r=<12 score chars, base36><color picks, 3 hex>&n=<first name> ===== */
 const CI = Q.findIndex(q=>q.a[0].sw);
-function rankScores(s){
-  const ranked=I.slice().sort((a,b)=>s[b]-s[a]);
-  const [a,b]=ranked, top=s[a];
-  let mode="single";
-  if(top>0&&s[b]===top) mode="equal";
-  else if(top>0&&s[b]>=top*CONFIG.TIE_TOUCH) mode="touch";
-  return {s,ranked,mode,lead:a,second:mode==="single"?null:b};
+/* Modes: single · touch (lead + one second) · touch2 (lead + two equal seconds) · equal (two tied for 1st) · three (three tied for 1st). Never more than 3. */
+function rankScores(s,pref){
+  pref=pref||(()=>0);
+  const ranked=I.slice().sort((a,b)=>s[b]-s[a]||pref(b)-pref(a));
+  const [a,b,c]=ranked, top=s[a];
+  const at=v=>ranked.filter(k=>s[k]===v).length;
+  let mode="single", second=null, third=null;
+  if(top>0&&s[b]===top){ if(at(top)>=3){mode="three";second=b;third=c} else {mode="equal";second=b} }
+  else if(top>0&&s[b]>=top*CONFIG.TIE_TOUCH){ second=b; if(at(s[b])===2){mode="touch2";third=c} else mode="touch" }
+  return {s,ranked,mode,lead:a,second,third};
 }
 function resultCode(r){
   let bits=0;[...picks[CI]].forEach(k=>bits|=1<<k);
-  return I.map(k=>Math.min(35,r.s[k]).toString(36)).join("")+bits.toString(16).padStart(3,"0");
+  const order=r.ranked.slice(0,3).map(k=>I.indexOf(k).toString(36)).join("");   // keeps the tie-break when the result is opened by link
+  return I.map(k=>Math.min(35,r.s[k]).toString(36)).join("")+bits.toString(16).padStart(3,"0")+order;
 }
 function resultLink(r){
   return location.origin+location.pathname+"?r="+resultCode(r)+"&n="+encodeURIComponent(person.name);
 }
 function fromCode(code){
-  if(!/^[0-9a-z]{12}[0-9a-f]{3}$/.test(code||"")) return null;
+  if(!/^[0-9a-z]{12}[0-9a-f]{3}([0-9b]{3})?$/.test(code||"")) return null;   // old 15-char links still open
   const s=Object.fromEntries(I.map((k,i)=>[k,parseInt(code[i],36)]));
-  const bits=parseInt(code.slice(12),16);
+  const bits=parseInt(code.slice(12,15),16);
   picks[CI]=new Set(Q[CI].a.map((_,k)=>k).filter(k=>bits&(1<<k)));
-  return rankScores(s);
+  const order=code.slice(15).split("").map(ch=>I[parseInt(ch,36)]);
+  return rankScores(s,k=>{const i=order.indexOf(k);return i<0?0:3-i});
 }
 
 function result(saved){
   step=Q.length+1;
-  const r=saved||score(), A=ARCH[r.lead], B=r.second?ARCH[r.second]:null;
+  const r=saved||score(), A=ARCH[r.lead], B=r.second?ARCH[r.second]:null, C=r.third?ARCH[r.third]:null;
   const total=Object.values(r.s).reduce((x,y)=>x+y,0)||1;
   const pct=k=>Math.round(r.s[k]/total*100);
   const zoom=SOURCE==="zoom";
   let head, pics;
   const fig=(X,cap)=>`<figure><img src="${IMG_FULL(X.img)}" alt="${X.name} interior collage">${cap?`<figcaption>${cap}</figcaption>`:""}</figure>`;
-  if(r.mode==="equal"){
+  if(r.mode==="three"){
+    head=`<div class="lead three">${A.name}, ${B.name}<span class="amp">&amp;</span>${C.name}</div><p class="touch">equal parts of all&nbsp;three</p>`;
+    pics=`<div class="pics three">${fig(A,A.name)}${fig(B,B.name)}${fig(C,C.name)}</div>`;
+  } else if(r.mode==="touch2"){
+    head=`<div class="lead">${A.name}</div><p class="touch">with a touch of <span class="it">${B.name}</span> &amp;&nbsp;<span class="it">${C.name}</span></p>`;
+    pics=`<div class="pics touch2">${fig(A,"")}${fig(B,"a touch of "+B.name)}${fig(C,"a touch of "+C.name)}</div>`;
+  } else if(r.mode==="equal"){
     head=`<div class="lead">${A.name}<span class="amp">&amp;</span>${B.name}</div><p class="touch">equal parts of&nbsp;both</p>`;
     pics=`<div class="pics equal">${fig(A,A.name)}${fig(B,B.name)}</div>`;
   } else if(r.mode==="touch"){
@@ -343,14 +362,14 @@ function result(saved){
   show(`<p class="eyebrow">${esc(person.name)}, meet your design archetype</p>
   ${head}
   ${pics}
-  <div class="desc">${block(A,!!B)}${B?block(B,true):""}</div>
+  <div class="desc">${block(A,!!B)}${B?block(B,true):""}${C?block(C,true):""}</div>
   ${palette}
   <div class="scores">${rows}</div>
   <div class="shop">
     <span class="hand">decor we picked for you</span>
     <h2>Bring <span class="it">your</span> archetype home</h2>
     <div class="btns"><a class="btn black" href="${link(r.lead,"mavely")}" target="_blank" rel="noopener">Shop ${A.name} decor</a></div>
-    ${B?`<p class="textlinks"><a href="${link(r.second,"mavely")}" target="_blank" rel="noopener">Shop ${B.name} decor</a></p>`:""}
+    ${B?`<p class="textlinks"><a href="${link(r.second,"mavely")}" target="_blank" rel="noopener">Shop ${B.name} decor</a>${C?` · <a href="${link(r.third,"mavely")}" target="_blank" rel="noopener">Shop ${C.name} decor</a>`:""}</p>`:""}
     <p class="small">We may earn a small commission from these links, at no extra cost to&nbsp;you.</p>
   </div>
   ${zoom?`<div class="meet"><h2>See you at our <span class="it">next&nbsp;meeting</span></h2><p>We'll bring your archetype to the table and show how it shapes your home.</p></div>`
@@ -379,7 +398,7 @@ function send(r){
   if(!CONFIG.ENDPOINT) return;
   const answers=Q.map((q,n)=>[...picks[n]].map(k=>({text:q.a[k].t,img:IMG(q.a[k].img,800)})));
   const body={time:new Date().toISOString(),source:SOURCE,name:person.name,email:person.email,consent:person.consent,
-    result:r.mode,lead:ARCH[r.lead].name,second:r.second?ARCH[r.second].name:"",scores:Object.fromEntries(I.map(k=>[ARCH[k].name,r.s[k]])),answers,code:resultCode(r),resultLink:resultLink(r),page:location.href};
+    result:r.mode,lead:ARCH[r.lead].name,second:[r.second,r.third].filter(Boolean).map(k=>ARCH[k].name).join(" & "),scores:Object.fromEntries(I.map(k=>[ARCH[k].name,r.s[k]])),answers,code:resultCode(r),resultLink:resultLink(r),page:location.href};
   try{fetch(CONFIG.ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)})}catch(e){}
 }
 
