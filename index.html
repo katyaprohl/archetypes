@@ -323,7 +323,7 @@ function resultLink(r){
   return location.origin+location.pathname+"?r="+resultCode(r)+"&n="+encodeURIComponent(person.name);
 }
 function fromCode(code){
-  if(!/^[0-9a-z]{12}[0-9a-f]{3}([0-9b]{3})?$/.test(code||"")) return null;   // old 15-char links still open
+  if(!/^[0-9a-z]{12}[0-9a-f]{3}([0-9ab]{3})?$/.test(code||"")) return null;   // old 15-char links still open
   const s=Object.fromEntries(I.map((k,i)=>[k,parseInt(code[i],36)]));
   const bits=parseInt(code.slice(12,15),16);
   picks[CI]=new Set(Q[CI].a.map((_,k)=>k).filter(k=>bits&(1<<k)));
